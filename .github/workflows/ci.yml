@@ -12,7 +12,7 @@ jobs:
       ### Pre-init
       ################################################
       - name: Checkout
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
           submodules: recursive  
@@ -31,7 +31,7 @@ jobs:
 
       - name: Theos Setup (Use Cache)
         id: cache
-        uses: actions/cache@v4.2.0
+        uses: actions/cache@v4
         with:
           path: ${{ github.workspace }}/theos
           key: ${{ runner.os }}-${{ steps.verify-cache.outputs.heads }}
@@ -63,7 +63,7 @@ jobs:
           ln -s layout/Library/MobileSubstrate/DynamicLibraries/KbsyncTweak.plist
       # Enable tmate debugging of manually-triggered workflows if the input option was provided
       - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3.19
+        uses: mxschmitt/action-tmate@v3
         if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.debug_enabled }}
 
       - name: Build Debug package
@@ -73,7 +73,7 @@ jobs:
           make package _THEOS_DARWIN_CAN_USE_MODULES=0 FINALPACKAGE=1
       
       - name: Publish artifact
-        uses: actions/upload-artifact@3.0.0
+        uses: actions/upload-artifact@3
         with:
           name: kbsynctool
           path: ${{ github.workspace }}/packages/*.deb
@@ -81,7 +81,7 @@ jobs:
       - name: Get tag
         if: ${{ startsWith(github.ref, 'refs/tags/') }}
         id: tag
-        uses: dawidd6/action-get-tag@v1.1.0
+        uses: dawidd6/action-get-tag@v1
       
       - name: Build Release package
         if: ${{ startsWith(github.ref, 'refs/tags/') }}
@@ -91,7 +91,7 @@ jobs:
           make package _THEOS_DARWIN_CAN_USE_MODULES=0 FINALPACKAGE=1 PACKAGE_VERSION=${TAGNAME#v}
 
       - name: Release
-        uses: softprops/action-gh-release@v2.2.1
+        uses: softprops/action-gh-release@v2
         if: ${{ startsWith(github.ref, 'refs/tags/') }}
         with:
           files: ${{ github.workspace }}/packages/*.deb
