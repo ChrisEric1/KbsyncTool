@@ -1,4 +1,6 @@
-TARGET := iphone:clang:14.5:13.0
+TARGET := iphone:clang:14.5:6.0
+ARCHS = armv7 armv7s arm64 arm64e
+GO_EASY_ON_ME = 1
 # THEOS_DEVICE_IP = 127.0.0.1
 # THEOS_DEVICE_PORT = 58422
 
@@ -8,7 +10,8 @@ TOOL_NAME = kbsynctool
 
 kbsynctool_FILES = main.m $(wildcard GCDWebServer/*/*.m)
 kbsynctool_CFLAGS = -fobjc-arc -IGCDWebServer/Core -IGCDWebServer/Requests -IGCDWebServer/Responses
-kbsynctool_LIBRARIES = rocketbootstrap
+kbsynctool_LIBRARIES = rocketbootstrap z
+kbsynctool_FRAMEWORKS = CFNetwork CoreServices UIKit
 kbsynctool_PRIVATE_FRAMEWORKS = AppSupport
 kbsynctool_CODESIGN_FLAGS = -Sentitlements.plist
 kbsynctool_INSTALL_PATH = /usr/local/bin
