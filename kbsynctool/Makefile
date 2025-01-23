@@ -10,7 +10,7 @@ TOOL_NAME = kbsynctool
 
 kbsynctool_FILES = main.m $(wildcard GCDWebServer/*/*.m)
 kbsynctool_CFLAGS = -fobjc-arc -IGCDWebServer/Core -IGCDWebServer/Requests -IGCDWebServer/Responses
-kbsynctool_LIBRARIES = rocketbootstrap z
+kbsynctool_LIBRARIES = rocketbootstrap
 kbsynctool_FRAMEWORKS = CFNetwork CoreServices UIKit
 kbsynctool_PRIVATE_FRAMEWORKS = AppSupport
 kbsynctool_CODESIGN_FLAGS = -Sentitlements.plist
